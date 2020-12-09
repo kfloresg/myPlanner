@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Sign Up</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    </head>
+
+    <body>
+        <div class="container">
+          <section class="logo">
+              <img src="{{url_for('static', filename='images/planner_logo.png')}}" alt="myPlanner Logo" width="65">
+              <h1>myPlanner</h1>
+          </section>
+
+          <div class="contain-message" style="min-height:30%; width:60%">
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                    {{message}}
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+          </div>
+
+          <form action="{{url_for('register')}}" method="POST" class="register">
+              <input type="text" placeholder="Email"  name="email"><br>
+              <input type="text" placeholder="Password" name="password"><br>
+              <input type="text" placeholder="Username" name="username"><br>
+              <input type="submit" value="Sign Up">
+          </form>
+    </body>
+</html>

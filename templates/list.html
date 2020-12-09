@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lan="eng">
+    <header>
+        <meta charset="UTF=8">
+        <title>MyPlanner - Lists</title>
+        <link rel="stylesheet" href="https://use.typekit.net/sif2tmq.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/lists.css')}}">
+    </header>
+
+    <body>
+        <header>
+            <div class="logo">
+                <img src="{{url_for('static', filename='images/planner_logo.png')}}" alt="Planner Logo" width="35" height="30">
+                <h1>myPlanner</h1>
+            </div>
+
+            <div class="navbar">
+                <div class="holder">
+                    <ul>
+                        <li><a class="homelink" href="{{url_for('home')}}">Home</a></li>
+                        <li><a class="homeworklink" href="{{url_for('homework')}}">Homework</a></li>
+                        <li><a class="listlink, current" href="{{url_for('lists')}}">Lists</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="todo">
+                <h2>TODO</h2>
+                <p>Add new todo item:</p>
+                <form action="{{url_for('addLists')}}" method="POST">
+                    <input type="text" name="todoitem"><br>
+                    <input type="submit" class="add-btn" value="Add Item">
+                </form>
+            </section>
+
+            <section class="incomplete">
+                <h2>Incomplete</h2>
+                <ul>
+                    {% for todo in incomplete %}
+                        <li>
+                            <tr>
+                                <td>
+                                    {{ todo.text }}
+                                </td>
+        
+                                <td class="buttons">
+                                    <form action="{{url_for('markLists')}}" method="POST">
+                                        <input type="hidden" value="{{todo.text}}" name="complete">
+                                        <input type="submit" value="Mark Completed">
+                                    </form>
+                                </td>
+        
+                                <td class="buttons">
+                                    <form action="{{url_for('deleteLists')}}" method="POST">
+                                        <input type="hidden" value="{{todo.text}}" name="delete">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="completed">
+                <h2>Completed</h2>
+                <ul>
+                    {% for todo in complete %}
+                    <li>{{ todo.text }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </body>
+</html>

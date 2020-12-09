@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Log In</title>
+        <link rel="stylesheet" href="{{url_for('static', filename='css/styles.css')}}">
+    </head>
+
+    <body>
+      <div class="container">
+        <section class="logo">
+            <img src="{{url_for('static', filename='images/planner_logo.png')}}" alt="myPlanner Logo" width="65">
+            <h1>myPlanner</h1>
+        </section>
+
+        <div class="contain-message" style="min-height:30%; width:60%">
+          {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              {% for message in messages %}
+                  {{message}}
+              {% endfor %}
+            {% endif %}
+          {% endwith %}
+        </div>
+
+        <form action="{{url_for('signin')}}" method="POST" class="login">
+            <input type="text" placeholder="Username" id="username" name="username"><br>
+            <input type="text" placeholder="Password" id="password" name="password"><br>
+            <input type="submit" value="Sign In">
+        </form>
+
+        <section class="aside">
+            <p>Forgot your username or password?</p>
+            <p>New to myPlanner? <a href="{{url_for('signup')}}">Sign Up</a></p>
+        </section>
+    </div>
+    </body>
+</html>

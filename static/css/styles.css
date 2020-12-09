@@ -1,0 +1,52 @@
+*{
+    font-family: questa-slab, serif;
+    margin: 0; 
+    padding: 0;  
+}
+
+body{
+    height: 100%;
+    background-color: rgb(3, 118, 122);
+    display: flex;  
+}
+
+.container{
+    margin: 0 auto;
+    margin-top: 200px; 
+}
+
+.logo{
+    align-items: center;
+    text-align: center;
+    color: rgb(255, 255, 255); 
+    font-size: 20px; 
+}
+
+.logo img{
+    margin-left: 40px;
+    margin-right: 40px;  
+}
+
+.login{
+    font-size: 30px; 
+    line-height: 40px;
+    border: none;
+}
+
+.register{
+    margin-top: 10px; 
+    font-size: 30px; 
+    line-height: 40px; 
+    border: none; 
+}
+
+.aside{
+    margin-top: 30px; 
+    color: rgb(202, 202, 202); 
+    text-align: center;
+    line-height: 30px;
+}
+
+.aside a{
+    color: rgb(155, 223, 224); 
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lan="eng">
+    <header>
+        <meta charset="UTF=8">
+        <title>MyPlanner-Home</title>
+        <link rel="stylesheet" href="https://use.typekit.net/sif2tmq.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/home.css')}}">
+    </header>
+
+    <body>
+        <header>
+            <div class="logo">
+                <img src="{{url_for('static', filename='images/planner_logo.png')}}" alt="Planner Logo" width="35" height="30">
+                <h1>myPlanner</h1>
+            </div>
+
+            <div class="navbar">
+                <div class="holder">
+                    <ul>
+                        <li><a class="homelink, current" href="{{url_for('home')}}">Home</a></li>
+                        <li><a class="homeworklink" href="{{url_for('homework')}}">Homework</a></li>
+                        <li><a class="listlink" href="{{url_for('lists')}}">Lists</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="classes">
+                <h2>Classes </h2>
+                <ul>
+                    {% for course in courses %}
+                        <li>
+                            <tr>
+                                <td>
+                                    {{ course.course }} * {{ course.day }} * From: {{ course.start }} - {{ course.end }}
+                                </td>
+        
+                                <td class="buttons">
+                                    <form action="{{url_for('deleteCourse')}}" method="POST">
+                                        <input type="hidden" value="{{ course.course }}" name="delete">
+                                        <input type="submit" value="Delete Course">
+                                    </form>
+                                </td>
+                            </tr> 
+                        </li>  
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="homework">
+                <h2>Homework</h2>
+                <ul>
+                    {% for homework in incomplete %}
+                        <li>
+                            {{ homework.course }}: {{ homework.task }} - Due: {{ homework.due }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="new">
+                <div class="add-class">
+                    <h2>Add New Class</h2>
+                    <form action="{{url_for('addCourse')}}" method="POST">
+                        <label for="classname">Class:</label>
+                        <input type="text" name="classname"><br>
+                        <label for="start">Start Time:</label>
+                        <input type="text" name="start"><br>
+                        <label for="end">End Time:</label>
+                        <input type="text" name="end"><br>
+                        <label for="days">Days of the Week:</label>
+                        <input type="text" name="days"><br>
+                        <input type="submit" class="add-btn" value="Add Class">
+                    </form>
+                </div>
+
+                <div class="add-assignment">
+                    <h2>Add New Homework Assignment</h2>
+                    <form action="{{url_for('addHomework')}}" method="POST">
+                        <label for="course">Class:</label>
+                        <input type="text" name="course"><br>
+                        <label for="assignment">Assignment:</label>
+                        <input type="text" name="assignment"><br>
+                        <label for="due">Due Date:</label>
+                        <input type="text" name="due"><br>
+                        <input type="submit" class="add-btn" value="Add Assignment">
+                    </form>
+                </div>
+
+                <div class="logout">
+                    <a href="{{url_for('logout')}}">Log Out</a>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>

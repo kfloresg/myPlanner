@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lan="eng">
+    <header>
+        <meta charset="UTF=8">
+        <title>MyPlanner-Home</title>
+        <link rel="stylesheet" href="https://use.typekit.net/sif2tmq.css">
+        <link rel="stylesheet" href="{{url_for('static', filename='css/homework.css')}}">
+    </header>
+
+    <body>
+        <header>
+            <div class="logo">
+                <img src="{{url_for('static', filename='images/planner_logo.png')}}" alt="Planner Logo" width="35" height="30">
+                <h1>myPlanner</h1>
+            </div>
+
+            <div class="navbar">
+                <div class="holder">
+                    <ul>
+                        <li><a class="homelink" href="{{url_for('home')}}">Home</a></li>
+                        <li><a class="homeworklink, current" href="{{url_for('homework')}}">Homework</a></li>
+                        <li><a class="listlink" href="{{url_for('lists')}}">Lists</a></li>
+                    </ul>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <section class="add-homework">
+                <h2>Add New Assignment</h2>
+                <form action="{{url_for('newHomework')}}" method="POST">
+                    <label for="course">Class:</label>
+                    <input type="text" name="course"><br>
+                    <label for="assignment">Assignment:</label>
+                    <input type="text" name="assignment"><br>
+                    <label for="due">Due Date:</label>
+                    <input type="text" name="due"><br>
+                    <input type="submit" class="add-btn" value="Add Assignment">
+                </form>
+            </section>
+
+            <section class="upcoming">
+                <h2>Upcoming</h2>
+                <ul>
+                    {% for assignment in upcoming %}
+                        <li>
+                            <tr>
+                                <td>
+                                    {{ assignment.task }}
+                                </td>
+        
+                                <td class="buttons">
+                                    <form action="{{url_for('markAssignment')}}" method="POST">
+                                        <input type="hidden" value="{{ assignment.task }}" name="complete">
+                                        <input type="submit" value="Mark Completed">
+                                    </form>
+                                </td>
+        
+                                <td class="buttons">
+                                    <form action="{{url_for('deleteAssignment')}}" method="POST">
+                                        <input type="hidden" value="{{assignment.task}}" name="delete">
+                                        <input type="submit" value="Delete">
+                                    </form>
+                                </td>
+                            </tr>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </section>
+
+            <section class="all">
+                <h2>All</h2>
+                <ul>
+                    {% for assignment in allHomework %}
+                    <li>{{ assignment.task }}</li>
+                    {% endfor %}
+                </ul>
+            </section>
+        </div>
+    </body>
+</html>
